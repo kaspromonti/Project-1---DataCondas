@@ -2,11 +2,11 @@
 
 OBJECTIVE: 
 Where are the most opportunities for Data Analyst and Data Scientist to find jobs?
-  1. Which city yields the highest salary?
+  1. Which city yields the highest salary 2020? YOY Comparison - (bar chart, line chart)
   2. Number of entry, mid and high level positions by city
   3. Which companies are highering the most?
   4. Which sector has the most opportunity?
- 
+  5. Summary Map including the city, # jobs, avg salary
   
 RESOURCES:
 
