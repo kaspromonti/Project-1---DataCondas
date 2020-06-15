@@ -7,7 +7,7 @@ from config import api_key
 api_key = api_key
 jobs_base_url = f"https://www.themuse.com/api/public/jobs?&{api_key}"
 category = "&category=Data%20Science"
-
+cityList = ['Atlanta','Boston','Chicago','Houston','Los Angeles','New York City','Philadelphia','San Francisco','Seattle','Washington DC']
 
 def getMaxPageCount(base_url,): 
 	page = "&page=1"
@@ -24,7 +24,7 @@ def getAllResults(base_url, maxPageCount, category):
 	while pageCount < 100:
 		resultNum = 0
 		response = requests.get(f"{base_url}{category}{page}{pageCount}").json()
-		print(f"loading requests from page {pageCount}")
+		print(f"Loading requests from page {pageCount}")
 		while resultNum < 20:
 			jobs_dict = {"job id": '',
 				 "job level": '',
@@ -62,4 +62,5 @@ def getAllResults(base_url, maxPageCount, category):
 maxPageCount = getMaxPageCount(jobs_base_url)
 jobList = getAllResults(jobs_base_url, maxPageCount, category)
 job_df = pd.DataFrame(jobList)
+job_df.to_csv("job_data.csv")
 print(job_df)
