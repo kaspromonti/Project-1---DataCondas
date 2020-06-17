@@ -76,12 +76,11 @@ def getAllResultsCompanies(base_url,maxPageCount,locationString):
 		response = requests.get(f"{base_url}{category}{page}{pageCount}&{locationString}").json()
 		print(f"Loading requests from page {pageCount}")
 		while resultNum < 20:
-			company_dict = {"company id": '', 
-							"company name": '', 
+			company_dict = {"company id": '' 
 				    		}
 			try: 
 				company_dict["company id"] = response["results"][resultNum]["id"]
-				company_dict["company name"] = response["results"][resultNum]["name"]
+				#company_dict["company name"] = response["results"][resultNum]["name"]
 				if len(response["results"][resultNum]["industries"]) > 1: 
 					for x in range(len(response["results"][resultNum]["industries"])): 
 						company_dict[f"industy {x+1}"] = response["results"][resultNum]["industries"][x]["name"]
@@ -96,15 +95,19 @@ def getAllResultsCompanies(base_url,maxPageCount,locationString):
 	return companyList
 
 locationString = buildCitiesString(cityList,stateList)
-# maxPageCount = getMaxPageCount(jobs_base_url,locationString)
-# jobList = getAllResultsJobs(jobs_base_url, maxPageCount, category, locationString)
-# job_df = pd.DataFrame(jobList)
-# job_df.to_csv("job_data.csv")
-# print(job_df)
+maxPageCount = getMaxPageCount(jobs_base_url,locationString)
+jobList = getAllResultsJobs(jobs_base_url, maxPageCount, category, locationString)
+job_df = pd.DataFrame(jobList)
+job_df.to_csv("job_data.csv")
+print(job_df)
 
 maxPageCount = getMaxPageCount(company_base_url,locationString)
 companyList = getAllResultsCompanies(company_base_url,maxPageCount,locationString)
 company_df = pd.DataFrame(companyList)
 company_df.to_csv("company_data.csv")
-
 print(company_df)
+
+merged_df = job_df.merge(company_df, on="company id", how="left")
+merged_df.to_csv("merged_df.csv")
+print(merged_df)
+
