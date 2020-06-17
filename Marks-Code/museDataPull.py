@@ -76,8 +76,7 @@ def getAllResultsCompanies(base_url,maxPageCount,locationString):
 		response = requests.get(f"{base_url}{category}{page}{pageCount}&{locationString}").json()
 		print(f"Loading requests from page {pageCount}")
 		while resultNum < 20:
-			company_dict = {"company id": '' 
-				    		}
+			company_dict = {"company id": '' }
 			try: 
 				company_dict["company id"] = response["results"][resultNum]["id"]
 				if len(response["results"][resultNum]["industries"]) > 1: 
