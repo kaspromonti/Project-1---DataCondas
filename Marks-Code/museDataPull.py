@@ -59,7 +59,7 @@ def getAllResultsJobs(base_url, maxPageCount, category, locationString):
 				jobs_dict["contents"] = response["results"][resultNum]["contents"]
 		
 			except (KeyError,IndexError):
-				print("Missing Location... skipping")
+				print("Missing Value... Skipping")
 				pass
 			
 			jobList.append(jobs_dict)
@@ -80,14 +80,13 @@ def getAllResultsCompanies(base_url,maxPageCount,locationString):
 				    		}
 			try: 
 				company_dict["company id"] = response["results"][resultNum]["id"]
-				#company_dict["company name"] = response["results"][resultNum]["name"]
 				if len(response["results"][resultNum]["industries"]) > 1: 
-					for x in range(len(response["results"][resultNum]["industries"])): 
-						company_dict[f"industy {x+1}"] = response["results"][resultNum]["industries"][x]["name"]
+					for i in range(len(response["results"][resultNum]["industries"])): 
+						company_dict[f"industy {i+1}"] = response["results"][resultNum]["industries"][i]["name"]
 				else:
 				 company_dict["industry 1"] = response["results"][resultNum][0]["industries"]
 			except(KeyError,IndexError):
-				print("Missing value... skipping")
+				print("Missing Value... Skipping")
 
 			companyList.append(company_dict)
 			resultNum += 1 
@@ -98,16 +97,16 @@ locationString = buildCitiesString(cityList,stateList)
 maxPageCount = getMaxPageCount(jobs_base_url,locationString)
 jobList = getAllResultsJobs(jobs_base_url, maxPageCount, category, locationString)
 job_df = pd.DataFrame(jobList)
-job_df.to_csv("job_data.csv")
-print(job_df)
 
 maxPageCount = getMaxPageCount(company_base_url,locationString)
 companyList = getAllResultsCompanies(company_base_url,maxPageCount,locationString)
 company_df = pd.DataFrame(companyList)
 company_df.to_csv("company_data.csv")
-print(company_df)
 
 merged_df = job_df.merge(company_df, on="company id", how="left")
 merged_df.to_csv("merged_df.csv")
+
+print(job_df)
+print(company_df)
 print(merged_df)
 
