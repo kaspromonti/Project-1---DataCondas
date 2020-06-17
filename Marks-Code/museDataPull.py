@@ -6,15 +6,15 @@ from config import api_key
 
 api_key = api_key
 jobs_base_url = f"https://www.themuse.com/api/public/jobs?{api_key}"
+company_base_url = f"https://www.themuse.com/api/public/companies?{api_key}"
 category = "&category=Data%20Science"
-cityList = ['Atlanta','Boston','Chicago','Houston','Philadelphia','Seattle','Washington',"New%20York%20", "Los%20Angeles","San%20Francisco" ]
+cityList = ['Atlanta','Boston','Chicago','Houston','Philadelphia','Seattle','Washington',"New%20York", "Los%20Angeles","San%20Francisco" ]
 stateList = ["GA","MA","IL","TX","PA","WA","DC", "NY", "CA", "CA"]
 
 def getMaxPageCount(base_url,locationString): 
-	page = "page=1"
-	response = requests.get(f"{base_url}{category}&{locationString}&{page}").json()
+	page = "&page=1"
+	response = requests.get(f"{base_url}{category}&{locationString}{page}").json()
 	maxPageCount = response["page_count"]
-	print(maxPageCount)
 	
 	return maxPageCount
 
@@ -25,7 +25,7 @@ def buildCitiesString(cityList, stateList):
 		finalCityURLString += f"location={cityList[x]}{seperator}{stateList[x]}&"
 	return finalCityURLString
  
-def getAllResults(base_url, maxPageCount, category, locationString): 
+def getAllResultsJobs(base_url, maxPageCount, category, locationString): 
 	jobList = []
 	pageCount = 1
 	page = "&page="
@@ -62,17 +62,49 @@ def getAllResults(base_url, maxPageCount, category, locationString):
 				print("Missing Location... skipping")
 				pass
 			
-			
-
 			jobList.append(jobs_dict)
 			resultNum += 1
 		pageCount += 1
 	return jobList
 
-locationString = buildCitiesString(cityList,stateList)
-maxPageCount = getMaxPageCount(jobs_base_url,locationString)
+def getAllResultsCompanies(base_url,maxPageCount,locationString):
+	companyList = []
+	pageCount = 1
+	page = "&page="
+	while pageCount <= maxPageCount:
+		resultNum = 0
+		response = requests.get(f"{base_url}{category}{page}{pageCount}&{locationString}").json()
+		print(f"Loading requests from page {pageCount}")
+		while resultNum < 20:
+			company_dict = {"company id": '', 
+							"company name": '', 
+				    		}
+			try: 
+				company_dict["company id"] = response["results"][resultNum]["id"]
+				company_dict["company name"] = response["results"][resultNum]["name"]
+				if len(response["results"][resultNum]["industries"]) > 1: 
+					for x in range(len(response["results"][resultNum]["industries"])): 
+						company_dict[f"industy {x+1}"] = response["results"][resultNum]["industries"][x]["name"]
+				else:
+				 company_dict["industry"] = response["results"][resultNum][0]["industries"]
+			except(KeyError,IndexError):
+				print("Missing value... skipping")
 
-jobList = getAllResults(jobs_base_url, maxPageCount, category, locationString)
-job_df = pd.DataFrame(jobList)
-job_df.to_csv("job_data.csv")
-print(job_df)
+			companyList.append(company_dict)
+			resultNum += 1 
+		pageCount += 1
+	return companyList
+
+locationString = buildCitiesString(cityList,stateList)
+# maxPageCount = getMaxPageCount(jobs_base_url,locationString)
+# jobList = getAllResultsJobs(jobs_base_url, maxPageCount, category, locationString)
+# job_df = pd.DataFrame(jobList)
+# job_df.to_csv("job_data.csv")
+# print(job_df)
+
+maxPageCount = getMaxPageCount(company_base_url,locationString)
+companyList = getAllResultsCompanies(company_base_url,maxPageCount,locationString)
+company_df = pd.DataFrame(companyList)
+company_df.to_csv("company_data.csv")
+
+print(company_df)
