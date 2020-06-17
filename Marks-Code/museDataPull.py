@@ -103,7 +103,7 @@ company_df = pd.DataFrame(companyList)
 company_df.to_csv("company_data.csv")
 
 merged_df = job_df.merge(company_df, on="company id", how="left")
-merged_df.to_csv("job_company_merged_df.csv")
+merged_df.to_csv("job_company_merged_data.csv")
 
 print(job_df)
 print(company_df)
