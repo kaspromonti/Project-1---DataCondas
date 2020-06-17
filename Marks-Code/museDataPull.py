@@ -86,7 +86,7 @@ def getAllResultsCompanies(base_url,maxPageCount,locationString):
 					for x in range(len(response["results"][resultNum]["industries"])): 
 						company_dict[f"industy {x+1}"] = response["results"][resultNum]["industries"][x]["name"]
 				else:
-				 company_dict["industry"] = response["results"][resultNum][0]["industries"]
+				 company_dict["industry 1"] = response["results"][resultNum][0]["industries"]
 			except(KeyError,IndexError):
 				print("Missing value... skipping")
 
