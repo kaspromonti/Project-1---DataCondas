@@ -6,7 +6,7 @@ from config import api_key
 
 api_key = api_key
 jobs_base_url = f"https://www.themuse.com/api/public/jobs?{api_key}"
-category = "category=Business%20%26%20Strategy"
+category = "category=Data%20Science"
 cityList = ['Atlanta','Boston','Chicago','Houston','Philadelphia','Seattle','Washington',"New%20York", "Los%20Angeles","San%20Francisco" ]
 stateList = ["GA","MA","IL","TX","PA","WA","DC", "NY", "CA", "CA"]
 
@@ -74,5 +74,5 @@ maxPageCount = getMaxPageCount(jobs_base_url,locationString)
 
 jobList = getAllResults(jobs_base_url, maxPageCount, category, locationString)
 job_df = pd.DataFrame(jobList)
-job_df.to_csv("job_data.csv")
+job_df.to_csv("job_data_science.csv")
 print(job_df)
