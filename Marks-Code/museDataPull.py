@@ -2,7 +2,8 @@ import requests
 import pandas as pd
 import json
 from pprint import pprint 
-from config import api_key 
+from config import api_key
+from dataCleaner import CleanData
 
 api_key = api_key
 jobs_base_url = f"https://www.themuse.com/api/public/jobs?{api_key}"
@@ -10,6 +11,7 @@ company_base_url = f"https://www.themuse.com/api/public/companies?{api_key}"
 category = "&category=Data%20Science"
 cityList = ['Atlanta','Boston','Chicago','Houston','Philadelphia','Seattle','Washington',"New%20York", "Los%20Angeles","San%20Francisco" ]
 stateList = ["GA","MA","IL","TX","PA","WA","DC", "NY", "CA", "CA"]
+cleaner = CleanData()
 
 def getMaxPageCount(base_url,locationString): 
 	page = "&page=1"
@@ -104,9 +106,12 @@ company_df.to_csv("company_data.csv")
 
 merged_df = job_df.merge(company_df, on="company id", how="left")
 merged_df = merged_df[merged_df["job id"] != '']
-merged_df.to_csv("job_company_merged_data.csv")
 
+
+merged_df = cleaner.renameJobs(merged_df)
+merged_df.to_csv("job_company_merged_data.csv")
 print(job_df)
 print(company_df)
 print(merged_df)
+print(merged_df["simple name"].value_counts())
 
