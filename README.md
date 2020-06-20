@@ -1,5 +1,5 @@
 # Project-1---DataCondas
-Hypothesis: If a person is looking for a successful career in Data Science, the best place to find work is in the tech industry.
+Hypothesis: If a person is looking for a successful career in Data Science, the best opportunities can be found in San Francisco.
 
 OBJECTIVE: 
 The objective of this project is to provide a snapshot of the current job market for a prospective Data Scientist/Analyst. 
