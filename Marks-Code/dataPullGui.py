@@ -1,6 +1,14 @@
 import wx 
 import pandas as pd
-
+import sys
+from listFile import jobs_base_url
+from listFile import cityList
+from listFile import stateList
+from listFile import catViewList
+from listFile import catSendList
+from listFile import jobs_base_url
+from listFile import company_base_url
+from museDataPull import dataPuller
 
 
 class MyFrame(wx.Frame): 
@@ -11,7 +19,7 @@ class MyFrame(wx.Frame):
 		box2 = wx.BoxSizer(wx.HORIZONTAL)
 		titleLabel = wx.StaticText(panel,-1,style=wx.ALIGN_CENTER)
 		label = wx.StaticText(panel, -1, style=wx.ALIGN_LEFT)
-		butt1 = wx.Button(panel, label='Add Catagories')
+		butt1 = wx.Button(panel, label='Collect Data')
 		butt1.Bind(wx.EVT_BUTTON, self.CatagorySelectionPress)
 		butt2 = wx.Button(panel, label='Clean Data')
 		butt2.Bind(wx.EVT_BUTTON, self.dataCleanPress)
@@ -51,47 +59,84 @@ class MyFrame(wx.Frame):
 
 class CatagorySelectionScreen(wx.Frame):
 	def __init__(self):
-		lblList = ["Data Science", "Engineering", "Sales", "Education", "Finance", "Editorial"]
-
-		super().__init__(parent=None, title='Select Catagories to Search', size=(600,200))
+		super().__init__(parent=None, title='Select Catagories to Search', size=(600,400))
 		panel = wx.Panel(self)
 		box = wx.BoxSizer(wx.VERTICAL)
+		box2 = wx.BoxSizer(wx.HORIZONTAL)
 		panel.SetSizer(box)
-		
-		
+	
 		titleLabel = wx.StaticText(panel,0, style=wx.ALIGN_CENTER)
 
-		titleTxt = "Select Categories to Search"
+		titleTxt = "Data Collection Screen"
 		titleFont = wx.Font(22,wx.ROMAN,wx.BOLD, wx.NORMAL)
 		titleLabel.SetFont(titleFont)
 		titleLabel.SetLabel(titleTxt)
 
-		self.choice = wx.ComboBox(panel,choices=lblList)
-		confirmButt = wx.Button(panel, label='Confirm Choice')
-		confirmButt.Bind(wx.EVT_BUTTON, self.onChoice)
+		self.choice = wx.ComboBox(panel,choices=catViewList)
+		jobsButt = wx.Button(panel, label="Pull Jobs Data")
+		companyButt = wx.Button(panel,label="Pull Company Data")
+		mergeButt = wx.Button(panel,label="Merge Data")
+		jobsButt.Bind(wx.EVT_BUTTON, self.onChoiceJobs)
+		companyButt.Bind(wx.EVT_BUTTON,self.onChoiceCompany)
+		mergeButt.Bind(wx.EVT_BUTTON,self.onMergeData)
+
+		self.log = wx.TextCtrl(panel, -1, size=(500,200), style=wx.TE_MULTILINE|wx.TE_READONLY|wx.HSCROLL)
+		redir = RedirectText(self.log)
+		sys.stdout = redir
 
 		box.Add(titleLabel,0,wx.ALIGN_CENTER)
-		box.Add(self.choice,0, wx.ALL | wx.LEFT,5)
-		box.Add(confirmButt,0, wx.ALL | wx.LEFT,5)
+		box.AddSpacer(15)
+		box.Add(self.log,0,wx.ALIGN_CENTER)
+		box.AddSpacer(15)
+		box2.Add(self.choice,0, wx.ALL | wx.LEFT,5)
+		box2.Add(jobsButt,0, wx.ALL | wx.LEFT,5)
+		box2.Add(companyButt,0,wx.ALL | wx.LEFT,5)
+		box2.Add(mergeButt,0,wx.ALL | wx.LEFT,5)
+		box.AddSpacer(10)
+		box.Add(box2,0,wx.ALL | wx.CENTER,5)
 
+	
 		self.Centre()
 		self.Show()
 
-	def onChoice(self,event):
-		cityList = ['Atlanta','Boston','Chicago','Houston','Philadelphia','Seattle','Washington',"New%20York%20", "Los%20Angeles","San%20Francisco" ]
-		stateList = ["GA","MA","IL","TX","PA","WA","DC", "NY", "CA", "CA"]
-		api_key = "1d977e68e38ae93062c5a39f8f5ae47fdce268345d24684b08609c129a2cbcc6"
-		jobs_base_url = f"https://www.themuse.com/api/public/jobs?{api_key}"
-		selection = self.choice.GetValue()
-		print(selection)
-		dataObject = dataPull()
+	def onChoiceJobs(self,event):
+		selection = self.choice.GetSelection()
+		print(f"Loading job posts for category {catViewList[selection]}")
+		dataObject = dataPuller()
 		locationString = dataObject.buildCitiesString(cityList,stateList)
-		maxPageCount = dataObject.getMaxPageCount(jobs_base_url,locationString,selection)
-		jobList = dataObject.getAllResults(jobs_base_url,maxPageCount,selection,locationString)
+		maxPageCount = dataObject.getMaxPageCount(jobs_base_url,locationString, catSendList[selection])
+		jobList = dataObject.getAllResultsJobs(jobs_base_url,maxPageCount,catSendList[selection],locationString)
 		job_df = pd.DataFrame(jobList)
-		print(job_df)
+		job_df.to_csv("Resources/job_data.csv")
+		print("")
+		print(f"{len(job_df)} unique jobs loaded")
+		print("")
 
-	
+
+	def onChoiceCompany(self,event):
+		selection = self.choice.GetSelection()
+		print(f"Loading company data for category {catViewList[selection]}")
+		dataObject = dataPuller()
+		locationString = dataObject.buildCitiesString(cityList,stateList)
+		maxPageCount = dataObject.getMaxPageCount(jobs_base_url,locationString, catSendList[selection])
+		companyList = dataObject.getAllResultsCompanies(company_base_url,maxPageCount,locationString,catSendList[selection])
+		company_df = pd.DataFrame(companyList)
+		company_df.to_csv("Resources/company_data.csv")
+		print("")
+		print(f"{len(company_df)} unique companies loaded")
+
+	def onMergeData(self,event):
+		job_df = pd.read_csv("Resources/job_data.csv")
+		company_df = pd.read_csv("Resources/company_data.csv")
+		job_df = job_df.drop(["Unnamed: 0"],axis=1)
+		company_df = company_df.drop(["Unnamed: 0"],axis=1)
+
+		merged_df = job_df.merge(company_df, on="company id", how="left")
+		merged_df[["city", "state"]] = merged_df.location.str.split(", ", expand=True,)
+		# print(merged_df)
+
+		# merged_df = merged_df[merged_df["job id"] != '']
+		merged_df.to_csv("job_company_merged_data.csv")
 
 
 class DataCleanScreen(wx.Frame):
@@ -109,6 +154,14 @@ class DataCleanScreen(wx.Frame):
 
 
 		self.Show()
+
+class RedirectText(object):
+    def __init__(self,aWxTextCtrl):
+        self.out = aWxTextCtrl
+
+    def write(self,string):
+        self.out.WriteText(string)
+
 
 if __name__ == '__main__':
 	app = wx.App()
