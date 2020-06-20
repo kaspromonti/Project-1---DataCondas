@@ -72,7 +72,7 @@ class dataPuller():
 					company_dict["company id"] = response["results"][resultNum]["id"]
 					if len(response["results"][resultNum]["industries"]) > 1: 
 						for i in range(len(response["results"][resultNum]["industries"])): 
-							company_dict[f"industy {i+1}"] = response["results"][resultNum]["industries"][i]["name"]
+							company_dict[f"industry {i+1}"] = response["results"][resultNum]["industries"][i]["name"]
 					else:
 					 company_dict["industry 1"] = response["results"][resultNum][0]["industries"]
 				except(KeyError,IndexError):
