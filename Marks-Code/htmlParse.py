@@ -6,12 +6,10 @@ pd.options.mode.chained_assignment = None
 
 class Parser():
 	def parseHtml(self,job_df):
-		cleaner = ProcessData()
 		jobContent = job_df["contents"]
 		indexCount = 0 
 		try:
 			for job in range(len(jobContent)):
-
 				soup = BeautifulSoup(jobContent[job], "lxml")
 				text = soup.text
 				text=text.replace("," ,"")

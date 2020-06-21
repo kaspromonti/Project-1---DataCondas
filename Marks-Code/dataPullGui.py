@@ -1,8 +1,10 @@
 import wx 
 import pandas as pd
 import sys
+import time
 from listFile import jobs_base_url
 from listFile import cityList
+from listFile import cleanCityList
 from listFile import stateList
 from listFile import catViewList
 from listFile import catSendList
@@ -14,7 +16,7 @@ from htmlParse import Parser
 
 class MyFrame(wx.Frame): 
 	def __init__(self):
-		super().__init__(parent=None, title="Data Collection Screen",size=(800,600))
+		super().__init__(parent=None, title="Data Collection Screen",size=(800,450))
 		panel = wx.Panel(self )
 		box = wx.BoxSizer(wx.VERTICAL)
 		box2 = wx.BoxSizer(wx.HORIZONTAL)
@@ -24,10 +26,7 @@ class MyFrame(wx.Frame):
 		panel.SetSizer(box)
 
 		titleTxt = "The Data Condas Data Collection Tool!"
-		txt1 = 'Welcome to the Data condas data collection tool'
-		txt2 = "This tool collects data from the website themuse.com" 
-		txt3 = "Data is pulled in through their API, processed then cleaned"
-		txt = txt1 + "\n" + txt2 + "\n" + txt3
+		txt = "This tool collects data from the website themuse.com. Data is pulled in through their API, processed then cleaned"
 		
 		titleFont = wx.Font(22, wx.ROMAN,wx.BOLD, wx.NORMAL)
 		font = wx.Font(12, wx.ROMAN, wx.ITALIC, wx.NORMAL)
@@ -45,14 +44,14 @@ class MyFrame(wx.Frame):
 		companyButt.Bind(wx.EVT_BUTTON,self.onChoiceCompany)
 		processButt.Bind(wx.EVT_BUTTON,self.onProcessData)
 
-		self.log = wx.TextCtrl(panel, -1, size=(500,200), style=wx.TE_MULTILINE|wx.TE_READONLY|wx.HSCROLL)
+		self.log = wx.TextCtrl(panel, -1, size=(700,200), style=wx.TE_MULTILINE|wx.TE_READONLY|wx.HSCROLL)
 		redir = RedirectText(self.log)
 		sys.stdout = redir
 
 		box.Add(titleLabel,0,wx.ALIGN_CENTER)
 		box.AddSpacer(20)
-		box.Add(label,0,wx.ALIGN_LEFT)
-		box.AddSpacer(50)
+		box.Add(label,0,wx.ALIGN_CENTER)
+		box.AddSpacer(30)
 		box.Add(self.log,0,wx.ALIGN_CENTER)
 		box.AddSpacer(15)
 		box2.Add(self.choice,0, wx.ALL | wx.LEFT,5)
@@ -66,10 +65,13 @@ class MyFrame(wx.Frame):
 		self.Show()
 
 	def onChoiceJobs(self,event):
-		selection = self.choice.GetSelection()
-		print(f"Loading job posts for category {catViewList[selection]}")
 		dataObject = dataPuller()
+		selection = self.choice.GetSelection()
 		locationString = dataObject.buildCitiesString(cityList,stateList)
+		print(f"Loading job posts for category {catViewList[selection]}")
+		for city in cleanCityList:
+			print(f"Building City String, adding location {city}")
+			time.sleep(0.1)
 		maxPageCount = dataObject.getMaxPageCount(jobs_base_url,locationString, catSendList[selection])
 		jobList = dataObject.getAllResultsJobs(jobs_base_url,maxPageCount,catSendList[selection],locationString)
 		job_df = pd.DataFrame(jobList)
@@ -80,10 +82,13 @@ class MyFrame(wx.Frame):
 
 
 	def onChoiceCompany(self,event):
+		dataObject = dataPuller()
 		selection = self.choice.GetSelection()
 		print(f"Loading company data for category {catViewList[selection]}")
-		dataObject = dataPuller()
 		locationString = dataObject.buildCitiesString(cityList,stateList)
+		for city in cleanCityList:
+			print(f"Building City String, adding location {city}")
+			time.sleep(0.1)
 		maxPageCount = dataObject.getMaxPageCount(jobs_base_url,locationString, catSendList[selection])
 		companyList = dataObject.getAllResultsCompanies(company_base_url,maxPageCount,locationString,catSendList[selection])
 		company_df = pd.DataFrame(companyList)
@@ -109,13 +114,17 @@ class MyFrame(wx.Frame):
 		clean_merged_df = cleaner.cleanValues(clean_merged_df)
 		clean_merged_df = parser.parseHtml(clean_merged_df)
 		clean_merged_df.to_csv("job_company_merged_data.csv")
+		print("")
+		print("Finished Cleaning Data")
+		print("Exported to csv as job_company_merged_data.csv ")
+		print("")
 
 class RedirectText(object):
     def __init__(self,aWxTextCtrl):
         self.out = aWxTextCtrl
 
     def write(self,string):
-        self.out.WriteText(string)
+        self.out.write(string)
 
 
 if __name__ == '__main__':

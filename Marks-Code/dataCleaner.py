@@ -54,7 +54,6 @@ class ProcessData():
     def mergeAndSplitLocation(self, job_df, company_df):
         merged_df = job_df.merge(company_df, on="company id", how="left")
         merged_df[["city", "state"]] = merged_df.location.str.split(", ", expand=True,)
-        print(merged_df)
 
         return merged_df
 
