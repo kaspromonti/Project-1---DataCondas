@@ -1,21 +1,33 @@
 import pandas as pd 
-from html.parser import HTMLParser 
+from bs4 import BeautifulSoup
+from listFile import skillList
+from dataCleaner import ProcessData
+pd.options.mode.chained_assignment = None
 
-jobs_df = pd.read_csv("job_company_merged_data.csv")
-jobContent = jobs_df["contents"]
-print(jobContent)
-print(jobContent[1])
+class Parser():
+	def parseHtml(self,job_df):
+		cleaner = ProcessData()
+		jobContent = job_df["contents"]
+		indexCount = 0 
+		try:
+			for job in range(len(jobContent)):
 
-class htmlParser(HTMLParser):
-	def startTags(self, tag,attrs):
-		print(f"Starting Tag: {tag}")
-	def endTag(self,tag):
-		print(f"End Tag: {tag}")
-	def parseData(self,data):
-		print(f"Data: {data}")
+				soup = BeautifulSoup(jobContent[job], "lxml")
+				text = soup.text
+				text=text.replace("," ,"")
+				text=text.replace(")" ,"")
+				text=text.replace("(" ,"")
+				text=text.replace("-" ,"")
+				text=text.replace("." ,"")
+				words = list(text.lower().split(" "))
+				for word in words:
+				 	if word in skillList:
+				 		index = skillList.index(word)
+				 		job_df.loc[indexCount, skillList[index]] = "True"
+				indexCount += 1
+		except:
+			pass
+		
+		return job_df
 
-parser = htmlParser()
-
-for x in range(len(jobContent)): 
-	htmlToParse = jobContent[x]
-	parser.feed(htmlToParse)
+		

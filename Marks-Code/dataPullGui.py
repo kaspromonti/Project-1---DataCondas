@@ -10,6 +10,7 @@ from listFile import jobs_base_url
 from listFile import company_base_url
 from museDataPull import dataPuller
 from dataCleaner import ProcessData
+from htmlParse import Parser
 
 class MyFrame(wx.Frame): 
 	def __init__(self):
@@ -92,6 +93,7 @@ class MyFrame(wx.Frame):
 
 	def onProcessData(self,event):
 		cleaner = ProcessData()
+		parser = Parser()
 		print("")
 		print("Merging Files....")
 		print("")
@@ -103,7 +105,9 @@ class MyFrame(wx.Frame):
 
 		merged_df = cleaner.mergeAndSplitLocation(job_df, company_df)
 		clean_merged_df = cleaner.renameJobs(merged_df)
+		clean_merged_df = parser.parseHtml(clean_merged_df)
 		clean_merged_df = cleaner.cleanValues(clean_merged_df)
+		clean_merged_df = parser.parseHtml(clean_merged_df)
 		clean_merged_df.to_csv("job_company_merged_data.csv")
 
 class RedirectText(object):

@@ -12,7 +12,7 @@ stateList = ["GA","MA","IL","TX","PA","WA","DC", "NY", "CA", "CA"]
 scientist_list=["scientist","data science","science","engineer","data engineer", "DBA", "developer", "programmer", "architect"]
 analyst_list=["analyst","data analyst","business intelligence","analytics","analytic","quant","research", "planning", "planner","strategy"]
 
-skillList = ["python","sql","tableau", "javascript", "machine learning", "excel", "html", "css"]
+skillList = ["python","sql","tableau", "javascript", "machine", "excel", "html", "css"]
 
 catSendList = ["Account%20Management","Business%20Strategy", "Creative%20&%20Design", "Customer%20Service", "Data%20Science", "Editorial",
 		   "Education", "Engineering", "Finance", "Fundraising%20%26%20Development","Healthcare", "Medicine", "HR%20%26%20Recruiting",

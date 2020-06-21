@@ -67,19 +67,4 @@ class ProcessData():
         return cleaned_df
 
 
- 
-
-
-# cleaned_df=pd.DataFrame(job_data)
-
-
-
-# cleaned_df = cleaned_df [cleaned_df.location.isin(city_list)] 
-
-# cleaned_df["industry 1"].fillna("Unspecified", inplace = True) 
-
-# cleaned_df["job level"]=cleaned_df["job level"].replace("management","Management")
-
-# cleaned_df.rename(columns={'industy 1': 'Industry','simple name':'Job Title'},inplace=True)
-
 
