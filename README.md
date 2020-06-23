@@ -52,7 +52,7 @@ Where are the most opportunities for Data Analyst and Data Scientist to find job
 	<li>matplotlib</li> 
 	<li>gmaps</li>
 	<li>gmaps.dataset</li>
-
+</ul>
 
 <h4>Data Collection Tool Scripts</h4>
 <ul> 
@@ -61,6 +61,8 @@ Where are the most opportunities for Data Analyst and Data Scientist to find job
 	<li>dataCleaner.py</li>
 	<li>htmlParse.py</li> 
 	<li>listFile.py</li> 
+</ul>
+<p>These scripts are used to run the data collection tool. To run the tool, run dataPullGui.py</p>
 
 <h4>Data Analysis Scripts</h4>
 <ul> 
