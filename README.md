@@ -12,8 +12,8 @@ Where are the most opportunities for Data Analyst and Data Scientist to find job
 </ul>
 <h3>Which companies have the most job openings in the top 10 cities?</h3>
 <ul>
-	<li>Fortune 500? (no plot, just slide)</li>
-	<li>Recommended by employees? (no plot, just slide)</li>
+	<li>Top 10 Companies Posting Jobs in the Data Science Field</li>
+	<li>Job Opening by City for Data Analysts and Datascientists</li>
 </ul>
 <h3>Number of entry, mid and high level positions by city</h3>
 <ul>
@@ -61,7 +61,12 @@ Where are the most opportunities for Data Analyst and Data Scientist to find job
 	<li>dataCleaner.py</li>
 	<li>htmlParse.py</li> 
 	<li>listFile.py</li> 
+
+<h4>Data Analysis Scripts</h4>
+<ul> 
+	<li>DataAnalysis.ipynb-MH</li>
+	
 </ul>
-</p>These five scripts are used for the Data Collection tool. To Run the tool run the script dataPullGui.py</p>
+</p>These scripts are used to graph the data analysis</p>
 
 
