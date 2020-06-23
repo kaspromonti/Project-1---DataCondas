@@ -25,7 +25,7 @@ Where are the most opportunities for Data Analyst and Data Scientist to find job
 	<li>Chart TBD</li>
 </ul>
 <h3>Which city has the lowest cost of living?</h3>
-<h3>Summary Map including the city, # jobs, avg salary</h3>
+<h3>Summary Map including the final ranking, city, # jobs, avg salary</h3>
 <ul>
 	<li>Google Maps</li>
 </ul>
