@@ -1,5 +1,5 @@
 <h1># Project-1---DataCondas</h1>
-<h2>Hypothesis: If a person is looking for a successful career in Data Science, the best opportunities can be found in San Francisco.</h2>
+<h2>Hypothesis: If a person is looking for a career in Data Science, the best opportunities can be found in San Francisco.</h2>
 
 <h2>OBJECTIVE:</h2> 
 <p>The objective of this project is to provide a snapshot of the current job market for a prospective Data Scientist/Analyst.
@@ -22,14 +22,14 @@ Where are the most opportunities for Data Analyst and Data Scientist to find job
 </ul>
 <h3>Which postings have the job skills relative to our certification program?</h3>
 <ul>
-	<li>Chart TBD</li>
+	<li>Multi-Bar Graph of salaries vs living wage</li>
 </ul>
 <h3>Which city has the lowest cost of living?</h3>
-<h3>Summary Map including the city, # jobs, avg salary</h3>
+<h3>Summary Map including the final ranking, city, # jobs, avg salary</h3>
 <ul>
 	<li>Google Maps</li>
 </ul>
-<h3>Rellevant Articles/resources for applicants in the Data Science Job Market</h3>
+
 
 <h3>RESOURCES:</h3>
 <ul>
