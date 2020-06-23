@@ -29,7 +29,7 @@ Where are the most opportunities for Data Analyst and Data Scientist to find job
 <ul>
 	<li>Google Maps</li>
 </ul>
-<h3>Rellevant Articles/resources for applicants in the Data Science Job Market</h3>
+
 
 <h3>RESOURCES:</h3>
 <ul>
