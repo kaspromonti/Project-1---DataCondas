@@ -22,7 +22,7 @@ Where are the most opportunities for Data Analyst and Data Scientist to find job
 </ul>
 <h3>Which postings have the job skills relative to our certification program?</h3>
 <ul>
-	<li>Chart TBD</li>
+	<li>Multi-Bar Graph of salaries vs living wage</li>
 </ul>
 <h3>Which city has the lowest cost of living?</h3>
 <h3>Summary Map including the final ranking, city, # jobs, avg salary</h3>
