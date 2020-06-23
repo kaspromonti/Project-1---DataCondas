@@ -1,8 +1,6 @@
 import requests 
 import pandas as pd
 import json
-from pprint import pprint 
-
 
 class dataPuller():
 	def getMaxPageCount(self,base_url,locationString,category): 
@@ -11,7 +9,6 @@ class dataPuller():
 		maxPageCount = response["page_count"]
 		
 		return maxPageCount
-
 
 	def buildCitiesString(self,cityList, stateList):
 		seperator = "%2C%20"

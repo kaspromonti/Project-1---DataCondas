@@ -29,3 +29,21 @@ https://www.glassdoor.com/research/job-market-report-historical/
 https://worldpopulationreview.com/states/cost-of-living-index-by-state/
 
 
+Data Collection Tool Scripts 
+dataPullGui.py
+museDataPull.py
+dataCleaner.py
+htmlParse.py 
+listFile.py 
+
+Dependencies
+pandas
+wx 
+sys
+time
+Beautiful Soup
+requests
+
+These five scripts are used for the Data Collection tool. To Run the tool run the script dataPullGui.py
+
+

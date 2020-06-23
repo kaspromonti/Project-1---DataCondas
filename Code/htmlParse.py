@@ -1,7 +1,6 @@
 import pandas as pd 
 from bs4 import BeautifulSoup
 from listFile import skillList
-from dataCleaner import ProcessData
 pd.options.mode.chained_assignment = None
 
 class Parser():
