@@ -1,3 +1,4 @@
+#This class is used to create the screen for the application
 import wx 
 import pandas as pd
 import sys
@@ -119,6 +120,7 @@ class MyFrame(wx.Frame):
 		print("Exported to csv as job_company_merged_data.csv ")
 		print("")
 
+#Taken from online source
 class RedirectText(object):
     def __init__(self,aWxTextCtrl):
         self.out = aWxTextCtrl

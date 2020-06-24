@@ -1,3 +1,4 @@
+#This class is for pulling data from the API 
 import requests 
 import pandas as pd
 import json

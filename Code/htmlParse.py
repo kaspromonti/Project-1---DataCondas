@@ -1,3 +1,4 @@
+# This class parses out the job skills from the html 
 import pandas as pd 
 from bs4 import BeautifulSoup
 from listFile import skillList

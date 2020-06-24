@@ -1,33 +1,48 @@
 <h1># Project-1---DataCondas</h1>
-<h2>Hypothesis: If a person is looking for a career in Data Science, the best opportunities can be found in San Francisco.</h2>
+<ul>
+	<li>Kristin Aspromonti</li>
+	<li>Melissa Hazelgreen</li>
+	<li>Mark Pasricha</li>
+	<li>Katt Rivera</li>
+</ul>
+<h2>Hypothesis: The best place to pursue a career in data science or data analytics is New York.</h2>
 
 <h2>OBJECTIVE:</h2> 
 <p>The objective of this project is to provide a snapshot of the current job market for a prospective Data Scientist/Analyst.
 Where are the most opportunities for Data Analyst and Data Scientist to find jobs within the US?</p>
 
-<h3>Which of the top 10 cities yields the highest salary 2020?</h3>
-<ul>
-	<li>Top 10 city comparison – (bar chart)</li>
-	<li>YOY Comparison - (bar chart)</li>
-</ul>
-<h3>Which companies have the most job openings in the top 10 cities?</h3>
-<ul>
-	<li>Top 10 Companies Posting Jobs in the Data Science Field</li>
-	<li>Job Opening by City for Data Analysts and Datascientists</li>
-</ul>
-<h3>Number of entry, mid and high level positions by city</h3>
+<h3>Where are the most opportunities?</h3>
 <ul>
 	<li>Data Analyst (stacked bar)</li>
 	<li>Data Scientist (stacked bar)</li>
 </ul>
-<h3>Which postings have the job skills relative to our certification program?</h3>
+<h3>Who is hiring?</h3>
 <ul>
-	<li>Multi-Bar Graph of salaries vs living wage</li>
+	<li>Data Analyst (pie)</li>
+	<li>Data Scientist (pie)</li>
 </ul>
-<h3>Which city has the lowest cost of living?</h3>
-<h3>Summary Map including the final ranking, city, # jobs, avg salary</h3>
+<h3>Where can I utilize my skills? Python?</h3>
 <ul>
-	<li>Google Maps</li>
+	<li>Skills (grouped bar)</li>
+	
+</ul>
+<h3>Where are the most competitive salaries offered?</h3>
+<ul>
+	<li>Salary by City (grouped bar)</li>
+</ul>
+<h3>How much have salaries increased over the past year?</h3>
+<ul>
+	<li>Salary Increase YOY by City (grouped bar)</li>
+
+</ul>
+<h3>Where is the lowest cost of living?</h3>
+<ul>
+	<li>Cost of Living (bar)</li>
+</ul>
+<h3>Where is the best place to pursue a career?</h3>
+<ul>
+	<li>Google Maps for Data Scientist</li>
+	<li>Google Maps for Data Analyst</li>
 </ul>
 
 
@@ -67,8 +82,14 @@ Where are the most opportunities for Data Analyst and Data Scientist to find job
 <h4>Data Analysis Scripts</h4>
 <ul> 
 	<li>DataAnalysis.ipynb-MH</li>
+	<li>Salary_YoY.ipynb-KR</li>
+	<li>Cost_of_Living_by_State.ipynb-KR</li>
+	<li>Posts_Python_Results_for_Ranking.ipynb-KR</li>
+	<li>Results_by_Ranking.ipynb-KR</li>
 	
 </ul>
 </p>These scripts are used to graph the data analysis</p>
+
+	
 
 
