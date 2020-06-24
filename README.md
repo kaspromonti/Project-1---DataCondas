@@ -1,4 +1,4 @@
-<h1># Project-1---DataCondas</h1>
+<h1># Project-1---the-data-condas</h1>
 <ul>
 	<li>Kristin Aspromonti</li>
 	<li>Melissa Hazelgreen</li>
