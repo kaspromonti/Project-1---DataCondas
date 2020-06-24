@@ -1,5 +1,5 @@
 <h1># Project-1---DataCondas</h1>
-<h2>Hypothesis: If a person is looking for a career in Data Science, the best opportunities can be found in San Francisco.</h2>
+<h2>Hypothesis: The best place to pursue a career in data science or data analytics is New York.</h2>
 
 <h2>OBJECTIVE:</h2> 
 <p>The objective of this project is to provide a snapshot of the current job market for a prospective Data Scientist/Analyst.
