@@ -1,4 +1,10 @@
 <h1># Project-1---DataCondas</h1>
+<ul>
+	<li>Kristin Aspromonti</li>
+	<li>Melissa Hazelgreen</li>
+	<li>Mark Pasricha</li>
+	<li>Katt Rivera</li>
+</ul>
 <h2>Hypothesis: The best place to pursue a career in data science or data analytics is New York.</h2>
 
 <h2>OBJECTIVE:</h2> 
