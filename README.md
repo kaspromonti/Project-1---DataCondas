@@ -76,8 +76,14 @@ Where are the most opportunities for Data Analyst and Data Scientist to find job
 <h4>Data Analysis Scripts</h4>
 <ul> 
 	<li>DataAnalysis.ipynb-MH</li>
+	<li>Salary_YoY.ipynb-KR</li>
+	<li>Cost_of_Living_by_State.ipynb-KR</li>
+	<li>Posts_Python_Results_for_Ranking.ipynb-KR<li>
+	<li>Results_by_Ranking.ipynb-KR</li>
 	
 </ul>
 </p>These scripts are used to graph the data analysis</p>
+
+	
 
 
