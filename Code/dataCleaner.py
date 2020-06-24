@@ -1,5 +1,6 @@
 #renameJobs and cleanValues originally written by Melissa
 #Class creation and alterations to logic by Mark
+#This Class performs all the data cleaning
 from listFile import scientist_list
 from listFile import analyst_list
 from listFile import cleanCityList
